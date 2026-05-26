@@ -31,15 +31,18 @@ class Scanner {
 
     /**
      * @type Function
-     * @params {Object}
     */
     onStartScan;
     
     /**
      * @type Function
-     * @params {Object}
     */
     onStopScan;
+
+    /**
+     * @type Function
+    */
+    onTick;
 
     /**
      * @type Function
@@ -114,6 +117,10 @@ class Scanner {
     }
 
     tick() {
+        if (typeof this.onTick === 'function') {
+            this.onTick();
+        }
+
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
             this.#videoCtx.drawImage(this.video, 0, 0, this.videoCanvas.width, this.videoCanvas.height);
 

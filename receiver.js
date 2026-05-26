@@ -3,6 +3,7 @@ const receiveBtn = document.querySelector('.receive-btn');
 const canvasElement = document.getElementById('canvas');
 const progressBar = document.querySelector('.progress-bar')
 const barFill = document.querySelector('.fill')
+const commandTitle = document.querySelector('.command-title')
 
 const BYTE_CHUNK_SIZE = 300;
 const PERCENT = 100;
@@ -35,7 +36,12 @@ async function startReceiver() {
         QRCode.toCanvas(canvasElement, [{ data: data, mode: 'byte' }], { errorCorrectionLevel: 'M'});
     }
 
+    scanner.onTick = () => {
+        commandTitle.textContent = "Slowly adjust the device's position!";
+    }
+
     scanner.onCodeDetect = (code) => {
+        commandTitle.textContent = "Hold it there!";
 
         if(code.binaryData.length > 0) {
             const [codeState, codeIndex, ...codeData] = code.binaryData;

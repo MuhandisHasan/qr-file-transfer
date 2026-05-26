@@ -4,6 +4,7 @@ const uploadSection = document.getElementById('upload-section');
 const canvasElement = document.getElementById('canvas');
 const progressBar = document.querySelector('.progress-bar')
 const barFill = document.querySelector('.fill')
+const commandTitle = document.querySelector('.command-title')
 
 const BYTE_CHUNK_SIZE = 300;
 const PERCENT = 100;
@@ -79,8 +80,13 @@ async function startTransfer(chunks) {
         updateProgress(0);
     }
     
+    scanner.onTick = () => {
+        commandTitle.textContent = "Slowly adjust the device's position!";
+    }
 
     scanner.onCodeDetect = (code) => {
+        commandTitle.textContent = "Hold it there!";
+
         if (code.binaryData.length > 0) {
             const [codeState, codeIndex, ...codeData] = code.binaryData;
 

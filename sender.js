@@ -16,6 +16,7 @@ function loadQrUI() {
     uploadSection.classList.add('hidden');
     canvasElement.classList.remove('hidden');
     progressBar.classList.remove('hidden');
+    commandTitle.classList.remove('hidden');
 }
 
 function updateProgress(percentage) {

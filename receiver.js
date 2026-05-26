@@ -11,6 +11,7 @@ const PERCENT = 100;
 function loadQrUI() {
     receiveSection.classList.add('hidden');
     canvasElement.classList.remove('hidden');
+    commandTitle.classList.remove('hidden');
 }
 
 receiveBtn.addEventListener('click', async () => {

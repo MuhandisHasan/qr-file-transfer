@@ -82,6 +82,7 @@ button {
     cursor: pointer;
     transition: background-color 0.2s, opacity 0.2s;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 button:hover:not(:disabled) {

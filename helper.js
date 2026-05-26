@@ -2,6 +2,7 @@ const TRANSFER_STATE = Object.freeze({
     NEW: 0,
     CONFIRM: 1,
     RETRY: 2,
+    COMPLETE: 4,
 });
 
 function equal(a, b, start = 0) {

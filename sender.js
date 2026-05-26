@@ -4,7 +4,6 @@ const uploadSection = document.getElementById('upload-section');
 const canvasElement = document.getElementById('canvas');
 const progressBar = document.querySelector('.progress-bar')
 const barFill = document.querySelector('.fill')
-const videoElement = document.querySelector('video');
 
 const BYTE_CHUNK_SIZE = 300;
 const PERCENT = 100;
@@ -82,19 +81,21 @@ async function startTransfer(chunks) {
     
 
     scanner.onCodeDetect = (code) => {
-        const [codeState, codeIndex, ...codeData] = code.binaryData;
+        if (code.binaryData.length > 0) {
+            const [codeState, codeIndex, ...codeData] = code.binaryData;
 
-        if (codeIndex === i && equal(codeData, chunks[i])) {
-            state = TRANSFER_STATE.NEW;
-            i++;
+            if (codeIndex === i && equal(codeData, chunks[i])) {
+                state = TRANSFER_STATE.NEW;
+                i++;
 
-            const progress = (i / chunks.length) * PERCENT;
-            updateProgress(progress);
-        } else {
-            state = TRANSFER_STATE.RETRY;
-        };
+                const progress = (i / chunks.length) * PERCENT;
+                updateProgress(progress);
+            } else {
+                state = TRANSFER_STATE.RETRY;
+            };
 
-        printChunk(chunks, i, state);
+            printChunk(chunks, i, state);
+        }
     };
 
     scanner.start();

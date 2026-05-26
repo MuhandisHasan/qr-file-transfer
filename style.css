@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9fafb; /* Soft light gray background */
+    color: #111827;
+}
+
+/* --- Main App Container (Card Style) --- */
+main.app {
+    width: 100vw;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Elegant shadow */
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    main.app {
+        width: 576px;
+    }
+}
+
+/* --- Upload Section Typography --- */
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+/* --- Form Elements --- */
+.input-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Styling the default file input for an elegant look */
+input[type="file"] {
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    color: #111827;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-right: 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #f3f4f6;
+}
+
+button {
+    background-color: #111827;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    width: 100%;
+}
+
+button:hover:not(:disabled) {
+    background-color: #374151;
+}
+
+button:disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* --- Canvas & Utility Classes --- */
+canvas {
+    width: 100% !important;
+    height: auto !important; /* height: auto maintains aspect ratio */
+    border-radius: 8px;
+    border: 1px solid #f3f4f6;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.progress-bar {
+  width: 100%;
+  padding: 4rem 3rem;
+  display: flex;
+  justify-content: center;
+  
+  .bar {
+    width: 600px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #F2F3F4;
+    
+    .fill {
+      height: 100%;
+      background: rgb(29, 90, 222);
+      background: linear-gradient(90deg, rgb(29, 110, 222) 0%, rgb(152, 178, 255) 100%);
+    }
+  }
+}
+
+/* spinner */
+.send-btn.loading::after {
+  content: "";
+  position: absolute;
+  margin-left: 10px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

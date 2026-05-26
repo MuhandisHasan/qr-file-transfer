@@ -95,6 +95,10 @@ async function startTransfer(chunks) {
                 state = TRANSFER_STATE.NEW;
                 i++;
 
+                if (i === chunks.length) {
+                    state = TRANSFER_STATE.COMPLETE;
+                }
+
                 const progress = (i / chunks.length) * PERCENT;
                 updateProgress(progress);
             } else {

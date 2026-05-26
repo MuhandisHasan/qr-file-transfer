@@ -1,8 +1,55 @@
 class Scanner {
+    /**
+     * @type HTMLVideoElement
+     */
+    video;
+
+    /**
+     * @type HTMLCanvasElement
+     */
+    videoCanvas;
+
+    /**
+     * @type Number
+     */
+    IDEAL_WIDTH;
+
+    /**
+     * @type Number
+     */
+    IDEAL_HEIGHT;
+
+    /**
+     * @type Number
+     */
+    MAX_WIDTH;
+
+    /**
+     * @type Number
+     */
+    MAX_HEIGHT;
+
+     /**
+     * @type Function
+     * @params {Object}
+     */
+    onStartScan;
+
+    /**
+     * @type Function
+     * @params {Object}
+     */
+    onCodeDetect;
+
+    /**
+     * @type CanvasRenderingContext2D
+     */
+    #videoCtx;
+
     constructor() {
         this.video = document.createElement("video");
         this.videoCanvas = document.createElement('canvas');
-        this.videoCtx = this.videoCanvas.getContext('2d');
+        this.#videoCtx = this.videoCanvas.getContext('2d');
 
         this.IDEAL_WIDTH = 1280;
         this.IDEAL_HEIGHT = 720;
@@ -22,23 +69,30 @@ class Scanner {
             this.videoCanvas.width = settings.width;
             this.videoCanvas.height = settings.height;
 
+            if (typeof this.onStartScan === 'function') {
+                this.onStartScan();
+            }
+
             requestAnimationFrame(() => this.tick());
         });
     }
 
     tick() {
         if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
-            this.videoCtx.drawImage(this.video, 0, 0, this.videoCanvas.width, this.videoCanvas.height);
+            this.#videoCtx.drawImage(this.video, 0, 0, this.videoCanvas.width, this.videoCanvas.height);
 
-            const imageData = this.videoCtx.getImageData(0, 0, this.videoCanvas.width, this.videoCanvas.height);
+            const imageData = this.#videoCtx.getImageData(0, 0, this.videoCanvas.width, this.videoCanvas.height);
             const code = jsQR(imageData.data, imageData.width, imageData.height, {
                 inversionAttempts: "dontInvert",
             });
 
             if (code) {
-                console.log(code);
+                if (typeof this.onCodeDetect === 'function') {
+                    this.onCodeDetect(code);
+                }
             }
         }
+
       requestAnimationFrame(() => this.tick());
     }
 }

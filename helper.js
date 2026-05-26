@@ -1,3 +1,19 @@
+const TRANSFER_STATE = Object.freeze({
+    NEW: 0,
+    CONFIRM: 1,
+    RETRY: 2,
+});
+
+function equal(a, b, start = 0) {
+  if (a.length !== b.length) return false;
+
+  for (let i = start; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+
+  return true;
+}
+
 function chunkArray(array, size) {
   const result = [];
   for (let i = 0; i < array.length; i += size) {

@@ -74,7 +74,7 @@ class Scanner {
     }
 
     start() {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment", width: {max: this.MAX_WIDTH, ideal: this.IDEAL_WIDTH}, height: {max: this.MAX_HEIGHT, ideal: this.IDEAL_HEIGHT} } }).then((stream) => {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: {max: this.MAX_WIDTH, ideal: this.IDEAL_WIDTH}, height: {max: this.MAX_HEIGHT, ideal: this.IDEAL_HEIGHT} } }).then((stream) => {
             this.#stream = stream;
             this.video.srcObject = this.#stream;
             this.video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen

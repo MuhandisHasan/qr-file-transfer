@@ -47,17 +47,23 @@ async function startReceiver() {
         if(code.binaryData.length > 0) {
             const [codeState, codeIndex, ...codeData] = code.binaryData;
 
+            console.log(code.binaryData);
+            console.log(`code state: ${codeState}`);
+            console.log(`code index: ${codeIndex}`);
+
             if (codeState === TRANSFER_STATE.NEW && codeIndex !== lastIndex) {
+                // console.log(codeIndex);
                 if (codeIndex > 0) {
                     chunks.push(lastChunk);
+                    console.log('Successfully saved chunk', lastIndex);
                 }
 
                 QRCode.toCanvas(canvasElement, [{ data: code.binaryData, mode: 'byte' }], { errorCorrectionLevel: 'M'});
-                chunk = codeData;
+                lastChunk = codeData;
                 lastIndex = codeIndex;
             } else if (codeState === TRANSFER_STATE.RETRY) {
                 QRCode.toCanvas(canvasElement, [{ data: code.binaryData, mode: 'byte' }], { errorCorrectionLevel: 'M'});
-                chunk = codeData;
+                lastChunk = codeData;
                 lastIndex = codeIndex;
             } else if (codeState === TRANSFER_STATE.COMPLETE) {
                 chunks.push(lastChunk);
